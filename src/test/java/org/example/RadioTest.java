@@ -56,7 +56,7 @@ class RadioTest {
     }
 
     @Test
-    public void nextVolume() {
+    public void nextVolume() { // увеличение громоксти на 1
         radio.setVolume(59);
         radio.volumeUp();
 
@@ -66,7 +66,7 @@ class RadioTest {
     }
 
     @Test
-    public void previousVolume() {
+    public void previousVolume() { // уменьшение громкости на 1
         radio.setVolume(59);
         radio.volumeDown();
 
@@ -76,7 +76,7 @@ class RadioTest {
     }
 
     @Test
-    public void moreMaximumVolume() {
+    public void moreMaximumVolume() { // максимальная громкость
         radio.setVolume(100);
         radio.volumeUp();
 
@@ -86,7 +86,7 @@ class RadioTest {
     }
 
     @Test
-    public void lessThanMinimumVolume() {
+    public void lessThanMinimumVolume() { // минимальная громкость
         radio.setVolume(0);
         radio.volumeDown();
 
@@ -96,7 +96,7 @@ class RadioTest {
     }
 
     @Test
-    public void nextStationAfterMax() {
+    public void nextStationAfterMax() { // следующая станция после 9
         radio.setWave(9);
         radio.nextWave();
 
@@ -105,7 +105,7 @@ class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 @Test
-    public void prevStationAfterMin() {
+    public void prevStationAfterMin() { // предыдущая старнция после 1
         radio.setWave(0);
         radio.previousWave();
 
