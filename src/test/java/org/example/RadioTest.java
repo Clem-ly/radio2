@@ -96,7 +96,7 @@ class RadioTest {
     }
 
     @Test
-    public void nextStationAfterMax() {     //следующая станция после Max
+    public void nextStationAfterMax() {
         radio.setWave(9);
         radio.nextWave();
 
@@ -105,7 +105,7 @@ class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 @Test
-    public void prevStationAfterMin() {     //предыдущая станция после Min
+    public void prevStationAfterMin() {
         radio.setWave(0);
         radio.previousWave();
 
