@@ -10,7 +10,7 @@ class RadioTest {
 
     @Test
     public void waveSelection() { // выбор станции
-        radio.wave = 8;
+        radio.setWave(8);
         int expected = 8;
         int actual = radio.getWave();
         Assertions.assertEquals(expected, actual);

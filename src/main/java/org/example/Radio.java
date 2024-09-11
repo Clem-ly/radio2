@@ -1,8 +1,8 @@
 package org.example;
 
 public class Radio {
-    public int wave;
-    public int volume;
+    private int wave;
+    private int volume;
 
     public int getWave() {
         return wave;
