@@ -6,7 +6,26 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
-    Radio radio = new Radio();
+    Radio radio = new Radio(25);
+
+    @Test
+    public void switchinToZeroStation() { // переключение на нулевую станцию
+        radio.setWave(8);
+        radio.setWave(0);
+        int expected = 0;
+        int actual = radio.getWave();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNextStation() { // переключение на следующую станцию
+        radio.setWave(17);
+        radio.nextWave();
+        int expected = 18;
+        int actual = radio.getWave();
+
+        Assertions.assertEquals(expected, actual);
+    }
 
     @Test
     public void waveSelection() { // выбор станции
@@ -18,8 +37,9 @@ class RadioTest {
     }
 
     @Test
-    public void moreMaximumWave() { // переключение после 9 станции
-        radio.setWave(10);
+    public void moreMaximumWave() { // переключение после последней станции
+        radio.setWave(24);
+        radio.nextWave();
         int expected = 0;
         int actual = radio.getWave();
         Assertions.assertEquals(expected, actual);
@@ -36,21 +56,39 @@ class RadioTest {
     }
 
     @Test
-    public void nextWave() { // следующая станция
-        radio.setWave(7);
-        radio.nextWave();
-
-        int expected = 8;
-        int actual = radio.getWave();
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
     public void previousWave() { // предыдущая станция
         radio.setWave(7);
         radio.previousWave();
 
         int expected = 6;
+        int actual = radio.getWave();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void switchingAfterZero() { // предыдущая станция
+        radio.setWave(0);
+        radio.previousWave();
+
+        int expected = 24;
+        int actual = radio.getWave();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void stationLimitValues() { // переключение после последней станции
+        radio.setWave(26);
+        radio.nextWave();
+        int expected = 1;
+        int actual = radio.getWave();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void stationLimitValues2() { // переключение после последней станции
+        radio.setWave(-1);
+        radio.previousWave();
+        int expected = 24;
         int actual = radio.getWave();
         Assertions.assertEquals(expected, actual);
     }
@@ -86,9 +124,20 @@ class RadioTest {
     }
 
     @Test
-    public void lessThanMinimumVolume() { // минимальная громкость
-        radio.setVolume(0);
-        radio.volumeDown();
+    public void volumeLimitValues() { // максимальная громкость
+        radio.setVolume(101);
+        radio.volumeUp();
+
+        int expected = 100;
+        int actual = radio.getVolume();
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void volumeLimitValues2() { // максимальная громкость
+        radio.setVolume(-1);
+        radio.volumeUp();
 
         int expected = 0;
         int actual = radio.getVolume();
@@ -96,21 +145,12 @@ class RadioTest {
     }
 
     @Test
-    public void nextStationAfterMax() { // следующая станция после 9
-        radio.setWave(9);
-        radio.nextWave();
+    public void lessThanMinimumVolume() { // минимальная громкость
+        radio.setVolume(0);
+        radio.volumeDown();
 
         int expected = 0;
-        int actual = radio.getWave();
-        Assertions.assertEquals(expected, actual);
-    }
-@Test
-    public void prevStationAfterMin() { // предыдущая старнция после 1
-        radio.setWave(0);
-        radio.previousWave();
-
-        int expected = 9;
-        int actual = radio.getWave();
+        int actual = radio.getVolume();
         Assertions.assertEquals(expected, actual);
     }
 }

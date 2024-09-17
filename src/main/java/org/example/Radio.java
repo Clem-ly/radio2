@@ -3,6 +3,15 @@ package org.example;
 public class Radio {
     private int wave;
     private int volume;
+    private int numberStation = 10;
+    private int minStation = 0;
+    private int maxStation = numberStation - 1;
+    private int minVolume = 0;
+    private int maxVolume = 100;
+
+    public Radio(int numberStation) { // конструктор для задания числа радиостанций
+        this.maxStation = numberStation - 1;
+    }
 
     public int getWave() {
         return wave;
@@ -13,47 +22,56 @@ public class Radio {
         return volume;
     }
 
-    public void setWave(int newWave) { // ограничение станций
-        if (newWave > 9) {
+    public void setVolume(int newVolume) { // ограничение громкости
+        volume = newVolume;
+        if (newVolume > maxVolume) {
             return;
         }
-        if (newWave < 0) {
+        if (newVolume < minVolume) {
+            return;
+        }
+    }
+
+    public void setWave(int newWave) { // ограничение станций
+        if (newWave > maxStation) {
+            return;
+        }
+        if (newWave < minStation) {
             return;
         }
         wave = newWave;
 
     }
 
-    public void setVolume(int newVolume) { // ограничение громкости
-
-        volume = newVolume;
-    }
-
     public void nextWave() { // следующая станция
-        if (wave < 9) {
+        if (wave < maxStation) {
             wave = wave + 1;
         } else {
-            wave = 0;
+            wave = minStation;
         }
     }
 
     public void previousWave() { // предыдущая станция
-        if (wave > 0) {
+        if (wave > minStation) {
             wave = wave - 1;
         } else {
-            wave = 9;
+            wave = maxStation;
         }
     }
 
     public void volumeUp() { // увеличение громкости на 1
-        if (volume < 100) {
+        if (volume < maxVolume) {
             volume = volume + 1;
+        } else {
+            volume = maxVolume;
         }
     }
 
     public void volumeDown() { // уменьшение громкости на 1
-        if (volume > 0) {
+        if (volume > minVolume) {
             volume = volume - 1;
+        } else {
+            volume = minVolume;
         }
     }
 }
